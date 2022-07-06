@@ -6,9 +6,9 @@ from util import sigmoid
 class Two_layer_mlp():
     def classify(self, arr):
         chosen = np.where(arr == np.amax(arr))[0][0]
-        pridicted = [0, 0, 0, 0, 0]
-        pridicted[chosen] = 1
-        return chosen, pridicted
+        predicted = [0, 0, 0, 0, 0]
+        predicted[chosen] = 1
+        return chosen, predicted
 
     def train(self, X, Y, h1=5, h2=5, output_neurons=5, eta=0.02, epochs=200):
         w1 = 2 * np.random.rand(X.shape[1], h1) - 1
@@ -26,14 +26,14 @@ class Two_layer_mlp():
             print('epoch ' + str(epoch))
             print('loss ' + str(loss))
             loss = 0
-            pridicted_points = []
+            predicted_points = []
             for inputs, label in zip(X, Y):
                 o1 = sigmoid(np.dot(inputs, w1) + b1)
                 o2 = sigmoid(np.dot(o1, w2) + b2)
                 o3 = sigmoid(np.dot(o2, w3) + b3)
 
-                chosen, pridicted = self.classify(o3)
-                pridicted_points.append(chosen)
+                chosen, predicted = self.classify(o3)
+                predicted_points.append(chosen)
 
                 delta3 = 2 * (np.subtract(o3, label) * sigmoid(o3, der=True))
                 delta2 = 2 * (np.dot(w3, delta3) * sigmoid(o2, der=True))
@@ -48,13 +48,13 @@ class Two_layer_mlp():
                 w1 = np.subtract(w1, (eta * np.kron(inputs, delta1).reshape(w1.shape)))
                 b1 = np.subtract(b1, (eta * delta1))
 
-                loss += np.sum(abs(np.subtract(pridicted, label))) / 2
+                loss += np.sum(abs(np.subtract(predicted, label))) / 2
 
             loss /= X.shape[0]
 
         
             plt.cla()
-            plt.scatter(X[:, 0], X[:, 1], c=pridicted_points, alpha=0.5)
+            plt.scatter(X[:, 0], X[:, 1], c=predicted_points, alpha=0.5)
             plt.pause(0.001)
 
             if (loss < 0.02):
