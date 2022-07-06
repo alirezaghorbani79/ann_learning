@@ -23,3 +23,12 @@ def linear_act(x, der=False):
         f = 1
 
     return f
+
+def sigmoid(x, der=False):
+    res = []
+    for i in range(len(x)):
+        res.append(1 / (1+np.exp(-x[i])))
+        if der: res[i] = res[i] * (1-res[i])
+
+
+    return res
