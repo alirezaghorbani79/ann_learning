@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
-from util import linear_act, sigmoid_act, tanh_act, sigmoid
+from util import sigmoid
 
 
 class One_layer_mlp():
@@ -9,7 +9,6 @@ class One_layer_mlp():
         pass
 
     def classify(self, arr):
-        # print(arr)
         chosen = np.where(arr == np.amax(arr))[0][0]
         pridicted = [0, 0, 0, 0, 0]
         pridicted[chosen] = 1
@@ -54,32 +53,22 @@ class One_layer_mlp():
             plt.scatter(X[:, 0], X[:, 1], c=pridicted_points, alpha=0.5)
             plt.pause(0.001)
 
-            if (loss < 0.001):
+            if (loss < 0.01):
                 break
 
 
+def main():
+    X, y = datasets.make_blobs(n_samples=250, centers=[(-0.8, -1), (-1.5, 0.25), (0, 1), (1.5, 0.25), (0.8, -1)], cluster_std=0.20, shuffle=True)
+    targets = []
+    for i in range(len(y)):
+        target = [0, 0, 0, 0, 0]
+        target[y[i]] = 1
+        targets.append(target)
 
-# def generate_data():
-#     indexes, labels_t = datasets.make_blobs(n_samples=250, centers=[(-0.8, -1), (-1.5, 0.25), (0, 1), (1.5, 0.25), (0.8, -1)],
-#                                             cluster_std=0.25,
-#                                             shuffle=False, random_state=20)
-
-#     labels = [[0, 0, 0, 0, 0] for i in range(250)]
-#     for i in range(250):
-#         label = labels_t[i]
-#         labels[i][label] = 1
-
-#     return indexes, labels_t, labels
+    one_layer_mlp = One_layer_mlp()
+    one_layer_mlp.train(X, targets, h1=5, eta=0.1, epochs=500)
+    plt.show()
 
 
-X, y = datasets.make_blobs(n_samples=250, centers=[(-0.8, -1), (-1.5, 0.25), (0, 1), (1.5, 0.25), (0.8, -1)], cluster_std=0.25, shuffle=True)
-targets = []
-for i in range(len(y)):
-    target = [0, 0, 0, 0, 0]
-    target[y[i]] = 1
-    targets.append(target)
-# indexes, labels_t, labels = generate_data()
-
-one_layer_mlp = One_layer_mlp()
-one_layer_mlp.train(X, targets, h1=5, eta=0.1, epochs=500)
-plt.show()
+if __name__ == "__main__":
+    main()
