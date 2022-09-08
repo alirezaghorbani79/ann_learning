@@ -1,10 +1,12 @@
-import torch
+"""
+Classification of four classes of gaussian points using SOM.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import multivariate_normal
 from sklearn_som.som import SOM
-import rbf_layer as rbf
-from RBFNet import RBFNet
+
 
 x, y = np.mgrid[-5.0:5.0:100j, -5.0:5.0:100j]
 xy = np.column_stack([x.flat, y.flat])
@@ -52,31 +54,4 @@ for index, m in enumerate([4, 12, 28, 40]):
     plt.scatter(x1, y1, c=prediction)
     plt.scatter(centers[:,:, 0], centers[:,:, 1], marker="*", color="black")
 
-plt.show()
-
-rbfnet = RBFNet(2, 1, 12, centers_dict[12], rbf.gaussian)
-rbfnet.fit(torch.from_numpy(xy).float(), torch.from_numpy(z.flatten()).float(), 1000, 100, 0.02, torch.nn.MSELoss())
-rbfnet.eval()
-
-with torch.no_grad():
-    prediction = rbfnet(torch.from_numpy(xy).float()).data.numpy()
-
-fig = plt.figure(figsize = (12,6))
-ax = fig.add_subplot(1, 2, 1, projection='3d')
-ax.plot_surface(x, y, z, cmap = plt.cm.cividis)
-ax.set_title('Main')
-
-ax.set_xlabel('x', labelpad=20)
-ax.set_ylabel('y', labelpad=20)
-ax.set_zlabel('z', labelpad=20)
-
-ax = fig.add_subplot(1, 2, 2, projection='3d')
-ax.plot_surface(x, y, prediction.reshape(z.shape), cmap = plt.cm.cividis)
-ax.set_title('Predicted')
-
-ax.set_xlabel('x', labelpad=20)
-ax.set_ylabel('y', labelpad=20)
-ax.set_zlabel('z', labelpad=20)
-
-plt.tight_layout()
 plt.show()

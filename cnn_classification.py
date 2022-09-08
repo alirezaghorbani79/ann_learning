@@ -1,4 +1,9 @@
-from traceback import print_tb
+"""
+Classification digits usuing Convolutional neural network.
+This program splits data into test and train parts and sterts training on 
+train data. After training, it shows the accuracy of network on the test data.
+"""
+
 from keras import layers, models
 import numpy as np
 import cv2
@@ -6,8 +11,8 @@ import os
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.utils import to_categorical
 
-model = models.Sequential()
 
+model = models.Sequential()
 model.add(layers.Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(28, 28, 1)))
 model.add(layers.MaxPool2D((2, 2)))
 model.add(layers.Conv2D(64, kernel_size=(3, 3), activation='relu'))
@@ -54,8 +59,6 @@ def generate_data():
 
     return X_train, X_test, Y_train, Y_test
 
-
-
 def main():
     X_train, X_test, Y_train, Y_test = generate_data()
 
@@ -65,8 +68,6 @@ def main():
     test_loss, test_acc = model.evaluate(X_test, Y_test)
 
     print(test_loss, test_acc)
-
-
 
 if __name__ == "__main__":
     main()

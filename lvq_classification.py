@@ -1,6 +1,13 @@
+"""
+Classification of two classes of gaussian points using learning vector quantization.
+In this program, i have created two classes of normal gaussian distribution on
+four different points and classify them usung LVQ.
+"""
+
 import numpy as np
 from sklearn import datasets
 import matplotlib.pyplot as plt
+
 
 class LVQ():
     def _get_min_dist_index(self, input, prototypes):
@@ -42,7 +49,6 @@ class LVQ():
 
         return self.prototypes
 
-
     def predict(self, X):
         predicted_labels = []
         for input in X:
@@ -72,7 +78,6 @@ def plot_decision_boundary(X, Y, prototypes,model):
 
     plt.show()
 
-
 def main():
     X1, y1 = datasets.make_blobs(n_samples=100, centers=[(-2, -2), (-2, 2)], cluster_std=0.5)
     X2, y2 = datasets.make_blobs(n_samples=100, centers=[(2, 2), (2, -2)], cluster_std=0.5)
@@ -87,7 +92,6 @@ def main():
     prototypes = lvq_net.train(X_train, Y_train, 5, 0.1, 10)
 
     plot_decision_boundary(X_train, Y_train, prototypes, lvq_net)
-
 
 if __name__ == '__main__':
     main()

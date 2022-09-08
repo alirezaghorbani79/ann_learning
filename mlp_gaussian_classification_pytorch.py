@@ -1,3 +1,9 @@
+"""
+Classification 5 classes of gaussian points using multilayer perceptron
+In this example, i have used a PyTorch sequential model to create an MLP network.
+Also, i have used a sigmoid for the activation function.
+"""
+
 import torch
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -40,8 +46,6 @@ class TorchMlp():
             plt.scatter(X[:, 0], X[:, 1], c=predicted_points, alpha=0.5)
             plt.text(0.2, 1.5, 'epoch = {:2d}| loss = {:.3f}'.format(epoch, loss), fontdict={'size': 12, 'color':  'blue'})
             plt.pause(0.001)
-
-
 
 def main():
     X, y = datasets.make_blobs(n_samples=250, centers=[(-0.8, -1), (-1.5, 0.25), (0, 1), (1.5, 0.25), (0.8, -1)], cluster_std=0.15)

@@ -1,3 +1,9 @@
+"""
+Classification ORL faces dataset using multilayer perceptron. In this program,
+i first divided the data into train and test parts and started training on the 
+train data. After that, i test the network using test data and show the results.
+"""
+
 import numpy as np
 import torch
 import os

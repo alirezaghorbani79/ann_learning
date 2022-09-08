@@ -1,3 +1,10 @@
+"""
+Classification digits using one-layer perceptron. In this program,
+first, i calculated the block average of the images and resized them into 8x8.
+After that, i divided them into the test and train parts and started training
+with the train data. Then i test the network using test data and show the results.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -6,9 +13,9 @@ import os
 from util import classify, calculate_block_mean, to_categorical
 from activation_function import tanh, sigmoid
 
+
 WIDTH = 8
 HEIGHT = 8
-
 
 def load_image_from_folder(path):
     images = []
@@ -22,7 +29,6 @@ def load_image_from_folder(path):
 
     return images, labels
 
-
 def generate_data():
     PATH = './bmp/'
 
@@ -32,7 +38,6 @@ def generate_data():
     X_train, X_test, Y_train, Y_test = train_test_split(images, labels, test_size=0.4)
 
     return X_train, X_test, Y_train, Y_test
-
 
 class OneLayerMlp():
     def train(self, X_train, Y_train, X_test, Y_test, h1=5, learning_rate=0.02, epochs=200):
@@ -92,10 +97,8 @@ def main():
     labels_train = to_categorical(Y_train, 10)
     labels_test = to_categorical(Y_test, 10)
 
-        
     one_layer_mlp = OneLayerMlp()
     one_layer_mlp.train(np.array(X_train), np.array(labels_train), np.array(X_test), np.array(labels_test), h1=30, learning_rate=0.1, epochs=300)
-
 
 if __name__ == '__main__':
     main()

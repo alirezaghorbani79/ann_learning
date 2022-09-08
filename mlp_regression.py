@@ -1,3 +1,8 @@
+"""
+Function regression using multilayer perceptron.
+In this example, i have used single-layer perceptron for regression
+"""
+
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
@@ -46,10 +51,8 @@ class OneLayerMlp():
 
         plt.waitforbuttonpress()
 
-
 def input_function(X):
     return 0.5 *(np.sin(2 * np.pi * X * X) + 1.0)
-
 
 def main():
     x_max = 1.0
@@ -64,6 +67,5 @@ def main():
     one_layer_mlp = OneLayerMlp()
     one_layer_mlp.train(X.detach().numpy(), Y.detach().numpy(), h1=8, eta=0.1, epochs=2000)
 
-    
 if __name__ == '__main__':
     main()

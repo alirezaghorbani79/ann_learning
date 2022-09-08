@@ -1,3 +1,9 @@
+"""
+2D function regression using RBF(radial basis function).In this program, 
+we have used the rbf_layer module to create layers of the RBF network
+for regression.
+"""
+
 import torch
 import rbf_layer as rbf
 import numpy as np
@@ -33,31 +39,33 @@ class RBFNet(torch.nn.Module):
                 loss.backward()
                 optimizer.step()
 
-
             if epoch % 20 == 0:
                 current_loss /= batch_size
                 print(f'\repoch {epoch} || loss = {current_loss}', end='')
 
 
+def main():
+    NUM_SAMPLES = 150
 
-NUM_SAMPLES = 150
+    xmin = -4; xmax = 4
+    X = np.arange(xmin, xmax, (xmax - xmin) / NUM_SAMPLES)
+    noise = np.random.uniform(-0.1, 0.1, NUM_SAMPLES)
+    Y = (1 - 4 * X - X ** 3 / 17) * np.sin(X ** 2)
 
-xmin = -4; xmax = 4
-X = np.arange(xmin, xmax, (xmax - xmin) / NUM_SAMPLES)
-noise = np.random.uniform(-0.1, 0.1, NUM_SAMPLES)
-Y = (1 - 4 * X - X ** 3 / 17) * np.sin(X ** 2)
+    X = torch.from_numpy(X.reshape(-1,1)).float()
+    Y = torch.from_numpy(Y.reshape(-1,1)).float()
 
-X = torch.from_numpy(X.reshape(-1,1)).float()
-Y = torch.from_numpy(Y.reshape(-1,1)).float()
+    rbfnet = RBFNet(1, 1, 100, rbf.gaussian)
+    rbfnet.fit(X, Y, 1000, 50, 0.01, torch.nn.MSELoss())
+    rbfnet.eval()
 
-rbfnet = RBFNet(1, 1, 100, rbf.gaussian)
-rbfnet.fit(X, Y, 1000, 50, 0.01, torch.nn.MSELoss())
-rbfnet.eval()
+    with torch.no_grad():
+        preds = rbfnet(X).data.numpy()
 
-with torch.no_grad():
-    preds = rbfnet(X).data.numpy()
+    plt.figure()
+    plt.plot(X, Y, label='Predicted', c='blue', alpha=0.5)
+    plt.scatter(X, preds, label='Predicted', s=10, c='red', alpha=0.5)
+    plt.show()
 
-plt.figure()
-plt.plot(X, Y, label='Predicted', c='blue', alpha=0.5)
-plt.scatter(X, preds, label='Predicted', s=10, c='red', alpha=0.5)
-plt.show()
+if __name__ == "__main__":
+    main()

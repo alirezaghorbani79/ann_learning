@@ -1,6 +1,7 @@
 import torch
 import rbf_layer as rbf
 
+
 class RBFNet(torch.nn.Module):
     def __init__(self, input_neurons, output_neurons, layer_centers, centers, basis_func):
         super(RBFNet, self).__init__()

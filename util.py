@@ -1,3 +1,7 @@
+"""
+Utility functions, which are used in the programs.
+"""
+
 import os
 import cv2
 import numpy as np
@@ -19,7 +23,6 @@ def load_image_from_folder(path):
             images.append(img)
 
     return images, labels
-
 
 def calculate_block_mean(images):
     WIDTH = 8

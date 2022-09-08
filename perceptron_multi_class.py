@@ -1,3 +1,7 @@
+"""
+Classification of four classes of points using a perceptron neural network
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import datasets
@@ -60,7 +64,6 @@ def plot_decision_boundary(model):
     plt.contourf(xx, yy, Z, cmap='turbo')
     plt.scatter(X[:, 0], X[:, 1], c=y, edgecolors='gray', cmap='Spectral')
     plt.show()
-
 
 X, y = datasets.make_blobs(n_samples=200, centers=[
                            (-2, -2), (2, 2), (-2, 2), (2, -2)], cluster_std=0.5, shuffle=True)

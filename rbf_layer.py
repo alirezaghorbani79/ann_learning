@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 
+
 class RBF(nn.Module):
     def __init__(self, in_features, out_features, basis_func, c = None, std = None):
         super(RBF, self).__init__()
@@ -28,7 +29,6 @@ class RBF(nn.Module):
         c = self.centres.unsqueeze(0).expand(size)
         distances = (x - c).pow(2).sum(-1).pow(0.5) / (torch.exp(self.log_sigmas).unsqueeze(0))
         return self.basis_func(distances)
-
 
 def gaussian(alpha):
     phi = torch.exp(-1*alpha.pow(2))

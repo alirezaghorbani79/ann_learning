@@ -1,3 +1,7 @@
+"""
+Classification two classes of points with perceptron neural network
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import datasets

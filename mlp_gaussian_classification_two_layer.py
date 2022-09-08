@@ -1,8 +1,15 @@
+"""
+Classification 5 classes of gaussian points using multilayer perceptron
+In this example, i have used a two-layer perceptron for classification
+and a sigmoid for the activation function.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
 from activation_function import sigmoid
 from util import classify, to_categorical
+
 
 class TwoLayerMlp():
     def train(self, X, Y, h1=5, h2=5, output_neurons=5, eta=0.02, epochs=200):

@@ -1,3 +1,9 @@
+"""
+Classification 5 classes of gaussian points using multilayer perceptron
+In this example, i have used a one-layer perceptron for classification
+and a sigmoid for the activation function
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -35,7 +41,6 @@ class OneLayerMlp():
                 loss += np.sum(abs(np.subtract(predicted, label))) / 2
 
             loss /= X.shape[0]
-
         
             plt.cla()
             plt.ylim((-1.75, 1.75))
@@ -47,7 +52,6 @@ class OneLayerMlp():
             if (loss < 0.01):
                 break
 
-
 def main():
     X, y = datasets.make_blobs(n_samples=250, centers=[(-0.8, -1), (-1.5, 0.25), (0, 1), (1.5, 0.25), (0.8, -1)], cluster_std=0.15)
     
@@ -56,7 +60,6 @@ def main():
     one_layer_mlp = OneLayerMlp()
     one_layer_mlp.train(X, labels, h1=5, eta=0.1, epochs=500)
     plt.show()
-
 
 if __name__ == "__main__":
     main()

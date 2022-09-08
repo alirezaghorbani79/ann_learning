@@ -1,3 +1,9 @@
+"""
+3D function regression using RBF(radial basis function).In this program, 
+we have used the rbf_layer module to create layers of the RBF network
+for regression.
+"""
+
 import torch
 import rbf_layer as rbf
 import numpy as np

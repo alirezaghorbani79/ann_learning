@@ -1,9 +1,14 @@
+"""
+Comparison between different methods of classification.
+"""
+
 import numpy as np
 import torch
 from sklearn.model_selection import train_test_split
 from sklearn import svm
 from matplotlib import pyplot as plt
 from util import load_image_from_folder, calculate_block_mean, calculate_hog, to_categorical
+
 
 def generate_data():
     PATH = './bmp'
@@ -23,7 +28,6 @@ def generate_data():
 
     return block_mean_train_x, block_mean_test_x, hog_train_x, hog_test_x, comb_train_x, comb_test_x, comb_train_y, comb_test_y, Y_train, Y_test
 
-
 class Net(torch.nn.Module):
     def __init__(self, input_neurons=64, h1=30, output_neurons=10):
         super(Net, self).__init__()
@@ -35,7 +39,6 @@ class Net(torch.nn.Module):
         x = self.fc2(x)
 
         return x
-
 
 def train(X_train, Y_train, model, optimizer, loss_func, epochs=1000):
 
@@ -57,14 +60,11 @@ def train(X_train, Y_train, model, optimizer, loss_func, epochs=1000):
 
             print('epoch ', str(epoch) , ' | loss ' , loss.data.numpy())
 
-
 def test(X_test, Y_test, model, loss_func):
     prediction = model(torch.tensor(X_test).float())
     loss = loss_func(prediction, torch.tensor(Y_test).float())
 
     return prediction, loss.data.numpy()
-
-
 
 def present(title, loss):
     print(f'|| {title} loss = {loss} ||')
@@ -109,8 +109,6 @@ def main():
     present ('combine block mean and hog features predictions', chertopert)
     present('combonential features prediction', comb_loss)
     present('svm network prediction', svm_loss)
-
-
 
 if __name__ == '__main__':
     main()

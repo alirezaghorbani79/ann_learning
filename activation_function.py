@@ -1,4 +1,9 @@
+"""
+Activation functions, which are used in the programs.
+"""
+
 import numpy as np
+
 
 def sigmoid(x, der=False):
     f = 1 / (1 + np.exp(-x))
