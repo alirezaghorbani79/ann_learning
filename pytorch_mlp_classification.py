@@ -1,5 +1,4 @@
 import torch
-import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
 from util import classify, to_categorical

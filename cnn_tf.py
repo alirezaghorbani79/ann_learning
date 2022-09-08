@@ -36,7 +36,7 @@ def load_image_from_folder(path):
     return images, labels
 
 def generate_data():
-    PATH = 'd:\\Programming\\NN\\ann_learning\\MLP\\bmp\\'
+    PATH = './bmp'
 
     images, labels = load_image_from_folder(PATH)
     X_train, X_test, Y_train, Y_test = train_test_split(images, labels, test_size=0.4)

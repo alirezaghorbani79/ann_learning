@@ -32,7 +32,6 @@ class OneLayerMlp():
             loss /= X.shape[0]
 
             if (epoch % 10 == 0):
-
                 z1 = tanh(np.dot(w1, X.T) + b1.reshape(b1.shape[0], 1))
                 prediction = tanh(np.dot(w_out, z1) + b_out)
                 plt.cla()
@@ -45,8 +44,6 @@ class OneLayerMlp():
             if(loss < 0.002):
                 break
 
-            
-        
         plt.waitforbuttonpress()
 
 
